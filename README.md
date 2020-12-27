@@ -16,7 +16,9 @@ To run the example project, clone the repo, and run `RxCollectionViewLayoutExamp
 
 ## Usage
 
-```swift
+The implementation is the same as RxDataSource - **https://github.com/RxSwiftCommunity/RxDataSources**
+
+```swift   
 let collectionViewLayout = RxCollectionViewGridLayout<SectionModel<Void, ItemOrNativeAd<Int, Int>>> (
             numberOfColumns: {
                 (viewLayout, collectionView) -> Int in
@@ -40,11 +42,21 @@ let collectionViewLayout = RxCollectionViewGridLayout<SectionModel<Void, ItemOrN
                 return .center
             }
         )
+```
+
+Turn your data into an Observable sequence
+Bind the data to the collectionView using:
+  - `collectionView.rx.items(layout:protocol<RxCollectionViewLayoutType, GridCollectionViewLayoutDelegate>)`
+  
+```swift
+let itemsObs = Observable.just(Array(1...30))
+let adsObs = Observable.just(Array(1...10))
         
-observableSource
-            .map{ [SectionModel(model: (), items: $0)] }
-            .bind(to: self.collectionView.rx.items(layout: collectionViewLayout))
-            .disposed(by: self.disposeBag)
+Observable.combineLatest(itemsObs, adsObs) { self.merge(items: $0, with: $1) }
+    .do { self.items = $0 }
+    .map{ [SectionModel(model: (), items: $0)] }
+    .bind(to: self.collectionView.rx.items(layout: collectionViewLayout))
+    .disposed(by: disposeBag)
 ```
 
 ## Installation
