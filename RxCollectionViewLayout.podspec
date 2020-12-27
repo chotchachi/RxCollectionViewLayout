@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = 'RxCollectionViewLayout'
-  spec.version      = '0.0.1'
+  spec.version      = '0.0.2'
   spec.authors      = { 'ThanhQuang' => 'thanhquang.stahli@gmail.com' }
   spec.summary      = 'Reactive extension for CollectionViewLayout'
   spec.license      = { 
@@ -11,7 +11,7 @@ Pod::Spec.new do |spec|
   spec.source       = { 
     :git => 'https://github.com/chotchachi/RxCollectionViewLayout.git', 
     :branch => 'main',
-    :tag => '0.0.1'
+    :tag => '0.0.2'
   }
   spec.source_files  = "RxCollectionViewLayout/**/*.{h,m,swift}"
   spec.swift_versions = '5.0'
