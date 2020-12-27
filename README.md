@@ -25,8 +25,8 @@ let collectionViewLayout = RxCollectionViewGridLayout<SectionModel<Void, ItemOrN
                 return 3
             },
             configureColumnSpan: {
-                (viewLayout, collectionView, indexPath, item) -> Int in
-                switch item {
+                (viewLayout, collectionView, indexPath, items) -> Int in
+                switch items {
                 case .item:
                     return 1
                 case .ad:
@@ -34,7 +34,7 @@ let collectionViewLayout = RxCollectionViewGridLayout<SectionModel<Void, ItemOrN
                 }
             },
             heightForRow: {
-                (viewLayout, collectionView, indexPath, item) -> CGFloat in
+                (viewLayout, collectionView, indexPath, items) -> CGFloat in
                 return (collectionView.frame.size.width/3)
             },
             alignmentForSection: {
