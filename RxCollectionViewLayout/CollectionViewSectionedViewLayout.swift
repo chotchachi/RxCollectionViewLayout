@@ -32,16 +32,6 @@ open class CollectionViewSectionedViewLayout<Section: SectionModelType>: NSObjec
         self.heightForSupplementaryView = heightForSupplementaryView
     }
     
-    // If collection view layout has already been bound, then mutating it
-    // afterwards isn't something desired.
-    // This simulates immutability after binding
-    var _layoutBound: Bool = false
-    private func ensureNotMutatedAfterBinding() {
-        #if DEBUG
-        assert(!_layoutBound, "Collection view layout is already bound. Please write this line before binding call (`bindTo`, `drive`). Data source must first be completely configured, and then bound after that, otherwise there could be runtime bugs, glitches, or partial malfunctions.")
-        #endif
-    }
-
     public typealias SectionModelSnapshot = SectionModel<Section, Item>
     
     private var _sectionModels: [SectionModelSnapshot] = []
@@ -74,35 +64,11 @@ open class CollectionViewSectionedViewLayout<Section: SectionModelType>: NSObjec
         self._sectionModels = sections.map { SectionModelSnapshot(model: $0, items: $0.items) }
     }
     
-    open var numberOfColumns: NumberOfColumns {
-        didSet {
-            ensureNotMutatedAfterBinding()
-        }
-    }
-    
-    open var configureColumnSpan: ConfigureColumnSpan {
-        didSet {
-            ensureNotMutatedAfterBinding()
-        }
-    }
-    
-    open var alignmentForSection: AlignmentForSection {
-        didSet {
-            ensureNotMutatedAfterBinding()
-        }
-    }
-    
-    open var heightForRow: HeightForRow {
-        didSet {
-            ensureNotMutatedAfterBinding()
-        }
-    }
-    
-    open var heightForSupplementaryView: HeightForSupplementaryView {
-        didSet {
-            ensureNotMutatedAfterBinding()
-        }
-    }
+    open var numberOfColumns: NumberOfColumns
+    open var configureColumnSpan: ConfigureColumnSpan
+    open var alignmentForSection: AlignmentForSection
+    open var heightForRow: HeightForRow
+    open var heightForSupplementaryView: HeightForSupplementaryView
     
     // MARK: - GridCollectionViewLayoutDelegate
     public func numberOfColumns(_ collectionView: UICollectionView) -> Int {

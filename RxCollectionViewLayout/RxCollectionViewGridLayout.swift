@@ -17,9 +17,6 @@ open class RxCollectionViewGridLayout<Section: SectionModelType>: CollectionView
     
     open func collectionView(_ collectionView: UICollectionView, observedEvent: Event<Element>) {
         Binder(self) { layout, element in
-            #if DEBUG
-            layout._layoutBound = true
-            #endif
             layout.setSections(element)
             collectionView.reloadData()
             collectionView.collectionViewLayout.invalidateLayout()
