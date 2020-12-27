@@ -14,6 +14,39 @@ To run the example project, clone the repo, and run `RxCollectionViewLayoutExamp
 - iOS 11.0+
 - Xcode 9
 
+## Usage
+
+```swift
+let collectionViewLayout = RxCollectionViewGridLayout<SectionModel<Void, ItemOrNativeAd<Int, Int>>> (
+            numberOfColumns: {
+                (viewLayout, collectionView) -> Int in
+                return 3
+            },
+            configureColumnSpan: {
+                (viewLayout, collectionView, indexPath, item) -> Int in
+                switch item {
+                case .item:
+                    return 1
+                case .ad:
+                    return 3
+                }
+            },
+            heightForRow: {
+                (viewLayout, collectionView, indexPath, item) -> CGFloat in
+                return (collectionView.frame.size.width/3)
+            },
+            alignmentForSection: {
+                (viewLayout, collectionView, section) -> GridCollectionViewLayout.Alignment in
+                return .center
+            }
+        )
+        
+observableSource
+            .map{ [SectionModel(model: (), items: $0)] }
+            .bind(to: self.collectionView.rx.items(layout: collectionViewLayout))
+            .disposed(by: self.disposeBag)
+```
+
 ## Installation
 
 ### CocoaPods
