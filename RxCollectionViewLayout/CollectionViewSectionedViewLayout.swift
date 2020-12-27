@@ -32,7 +32,6 @@ open class CollectionViewSectionedViewLayout<Section: SectionModelType>: NSObjec
         self.heightForSupplementaryView = heightForSupplementaryView
     }
     
-    #if DEBUG
     // If collection view layout has already been bound, then mutating it
     // afterwards isn't something desired.
     // This simulates immutability after binding
@@ -42,7 +41,6 @@ open class CollectionViewSectionedViewLayout<Section: SectionModelType>: NSObjec
         assert(!_layoutBound, "Collection view layout is already bound. Please write this line before binding call (`bindTo`, `drive`). Data source must first be completely configured, and then bound after that, otherwise there could be runtime bugs, glitches, or partial malfunctions.")
         #endif
     }
-    #endif
 
     public typealias SectionModelSnapshot = SectionModel<Section, Item>
     
